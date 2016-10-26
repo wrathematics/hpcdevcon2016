@@ -1,0 +1,99 @@
+---
+title: "HPC with R Tutorial Prerequisites"
+author: "Drew Schmidt"
+output: pdf_document
+---
+
+HPC with R: The Basics
+
+Some chuckle at the thought of R as a high performance language. However, as the landscape of HPC changes to better accommodate data analysis applications and users, R is a natural choice due to its overwhelming popularity. Fortunately, many have already taken up the call to embed R in HPC environments.
+
+In this tutorial, we will explain R's relationship to current HPC hardware, discuss basic performance analysis and benchmarking tools for R, describe some best practices for improving basic R code, and conclude with a discussion of R's parallel computing capabilities.
+
+
+Vision for Lab:
+The tutorial is meant to give a broad overview of R's capabilities as an HPC language. We will not go into great depth on any one topic; instead, we will introduce packages and utilities which will be of general interest, and provide resources to enable the attendee to study any given topic further as their interests align. As such, the attendee should come away with a foundational understanding of R's capabilities as a tool for high performance computing. The material is therefore well-suited to professionals and service providers alike.
+
+
+Technical Requirements:
+There is no "hands-on" portion for the tutorial, but there will be "take home" exercises.  To complete these or to optionally follow along with examples presented at the workshop, the attendee should have R installed on their laptop. 
+
+
+
+
+# Pre-Requisites
+
+## Attendee Background
+
+The attendee should ideally have some familiarity with working with R.  Service providers looking for information to better support R users need not have direct experience with R, provided they have a strong programming background, and some familiarity with a high-level language such as Python or Matlab.
+
+
+
+<br><br>
+
+## Tutorial Outline and Goals
+
+The tutorial will be roughtly an hour and a half, and is intended to give a 
+
+The tutorial is divided into 4 1-hour modules, consisting of 45 minutes of instruction and 15 minutes of hands-on exercises.  The general structure of the tutorial will be:
+
+1.  Basics
+    * Instruction (45 minutes)
+        1. Introduction
+        2. Debugging
+        3. Profiling
+        4. Benchmarking
+    * Exercises (15 minutes)
+
+2. Improving R Performance
+    * Instruction (45 minutes)
+        1. Free improvements
+        2. Vectorization, loops, and *plys
+    * Exercises + break (30 minutes)
+
+3. Interfacing to Compiled Code
+    * Instruction (45 minutes)
+        1. Interfacing to Compiled Code
+    * Exercises (15 minutes)
+
+4.  Parallelism
+    * Instruction (45 minutes)
+        1. Shared memory parallelism
+        2. Distributed parallelism
+
+
+
+# Software
+
+In order to complete the exercises, you will need to have R as well as some R packages installed.  You can [download R here](http://cran.r-project.org).  The packages you will need are:
+
+## Software Requirements
+
+
+* Rcpp
+* rbenchmark
+* microbenchmark
+
+To install a package named `pkg`, start up an R session and enter 
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("pkg")
+```
+
+I would strongly encourage you to install the [RStudio Desktop editor](http://www.rstudio.com/products/rstudio/download/).  RStudio is the most popular editor used in the R community, so even if you prefer another editor/ide, it is still useful to get a sense for the tools that R users find most appealing.
+
+Finally, in order to follow along with the examples and exercises of the Rcpp section, you will need to be able to build packages from source, the requirements for which are detailed below by operating system.
+
+
+#### Windows
+
+Install [Rtools](http://cran.r-project.org/bin/windows/Rtools/).
+
+#### Mac
+
+First, you will need to install [XCode](http://itunes.apple.com/us/app/xcode/id497799835?mt=12) from the Mac App Store.  Then, open XCode and choose "Preferences", "Downloads", then "Install Command Line Tools".
+
+#### Linux, FreeBSD, etc.
+
+You're probably good.
+
