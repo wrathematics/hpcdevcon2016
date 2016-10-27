@@ -2,98 +2,71 @@
 title: "HPC with R Tutorial Prerequisites"
 author: "Drew Schmidt"
 output: pdf_document
+linkcolor: blue
 ---
 
-HPC with R: The Basics
+# Attendee Background
 
-Some chuckle at the thought of R as a high performance language. However, as the landscape of HPC changes to better accommodate data analysis applications and users, R is a natural choice due to its overwhelming popularity. Fortunately, many have already taken up the call to embed R in HPC environments.
-
-In this tutorial, we will explain R's relationship to current HPC hardware, discuss basic performance analysis and benchmarking tools for R, describe some best practices for improving basic R code, and conclude with a discussion of R's parallel computing capabilities.
-
-
-Vision for Lab:
-The tutorial is meant to give a broad overview of R's capabilities as an HPC language. We will not go into great depth on any one topic; instead, we will introduce packages and utilities which will be of general interest, and provide resources to enable the attendee to study any given topic further as their interests align. As such, the attendee should come away with a foundational understanding of R's capabilities as a tool for high performance computing. The material is therefore well-suited to professionals and service providers alike.
-
-
-Technical Requirements:
-There is no "hands-on" portion for the tutorial, but there will be "take home" exercises.  To complete these or to optionally follow along with examples presented at the workshop, the attendee should have R installed on their laptop. 
+The attendee should ideally have some familiarity working with R.  Service providers looking for information to better support R users need not have direct experience with R, provided they have a strong programming background, and some familiarity with a high-level language such as Python or Matlab.
 
 
 
+# Software Requirements
 
-# Pre-Requisites
+There is no "hands-on" portion for the tutorial, but there will be "take home" exercises.  To complete these or to optionally follow along with examples presented during the workshop, you will need to install some software.
 
-## Attendee Background
+### R
+In order to complete the exercises, you will need to have R installed.  You can find R binaries and/or source at http://cran.r-project.org. Installation for Windows and Mac useres should be very much like what you are used to.  Linux and *BSD users probably have access to R in their OS's software repository; you can find additional information at the above download link.
 
-The attendee should ideally have some familiarity with working with R.  Service providers looking for information to better support R users need not have direct experience with R, provided they have a strong programming background, and some familiarity with a high-level language such as Python or Matlab.
-
-
-
-<br><br>
-
-## Tutorial Outline and Goals
-
-The tutorial will be roughtly an hour and a half, and is intended to give a 
-
-The tutorial is divided into 4 1-hour modules, consisting of 45 minutes of instruction and 15 minutes of hands-on exercises.  The general structure of the tutorial will be:
-
-1.  Basics
-    * Instruction (45 minutes)
-        1. Introduction
-        2. Debugging
-        3. Profiling
-        4. Benchmarking
-    * Exercises (15 minutes)
-
-2. Improving R Performance
-    * Instruction (45 minutes)
-        1. Free improvements
-        2. Vectorization, loops, and *plys
-    * Exercises + break (30 minutes)
-
-3. Interfacing to Compiled Code
-    * Instruction (45 minutes)
-        1. Interfacing to Compiled Code
-    * Exercises (15 minutes)
-
-4.  Parallelism
-    * Instruction (45 minutes)
-        1. Shared memory parallelism
-        2. Distributed parallelism
+If for some reason you wish to build R from source, consult the R Installation and Administration manual https://cran.r-project.org/doc/manuals/R-admin.html.
 
 
 
-# Software
+### RStudio
+R is supported in just about every text editor and multi-language IDE these days.  However, much of the R community uses the RStudio Desktop IDE http://www.rstudio.com/products/rstudio/download/.  It has binaries for Windows, Mac, and Linux.  You can even install a server version running on a remote instance, and it looks/behaves much the same as the desktop version.
 
-In order to complete the exercises, you will need to have R as well as some R packages installed.  You can [download R here](http://cran.r-project.org).  The packages you will need are:
-
-## Software Requirements
+RStudio is probably the most popular editor used in the R community, so even if you prefer another editor/ide, it is still useful to get a sense for the tools that R users find most appealing.  Installing RStudio is optional.  But if you install it, you still need to install R separately as explained above.
 
 
-* Rcpp
-* rbenchmark
-* microbenchmark
 
-To install a package named `pkg`, start up an R session and enter 
+### MPI (Optional)
+If you wish to experiment with using MPI with R, then you will need a system installation of MPI. 
 
+* Windows: MS-MPI https://msdn.microsoft.com/en-us/library/bb524831(v=vs.85).aspx
+* Install Open MPI; we are not Mac users so there may be a better approach, but we generally use MacPorts for this.  See section 3.2 of [this document](https://github.com/wrathematics/installation-instructions/raw/master/output/without_screenshots/pdf/installation_mac.pdf) for more details.
+* Linux/FreeBSD: install Open MPI from your package manager.
+
+
+### Packages
+The lab will use both in instruction and in exercises several package extensions.  To install a package named `pkg`, start up an R session and enter 
 ```{r, echo=TRUE, eval=FALSE}
 install.packages("pkg")
 ```
 
-I would strongly encourage you to install the [RStudio Desktop editor](http://www.rstudio.com/products/rstudio/download/).  RStudio is the most popular editor used in the R community, so even if you prefer another editor/ide, it is still useful to get a sense for the tools that R users find most appealing.
+This will automatically handle dependency resolution for you.
 
-Finally, in order to follow along with the examples and exercises of the Rcpp section, you will need to be able to build packages from source, the requirements for which are detailed below by operating system.
+Two packages which we will highlight during the lab which you are strongly recommended to install are:
+* rbenchmark
+* microbenchmark
+
+If you wish to experiment with (mostly) shared-memory parallelism in R, you might want to install:
+* foreach
+* doParallel
+* snow
+
+We will also briefly discuss using MPI with R.  If you have MPI installed (see above), the main packages of interest are:
+* Rmpi
+* pbdMPI
+* pbdDMAT
 
 
-#### Windows
 
-Install [Rtools](http://cran.r-project.org/bin/windows/Rtools/).
+### Compilers (Optional)
+Finally, if you wish to be able to build packages from source, then you need to install some additional things.  This is not strictly necessary, although there is a very active community of R developers on GitHub, who do not submit their packages to CRAN (which distributes binaries for Windows+Mac).  This is optional for this lab, though encouraged if you use R regularly.
 
-#### Mac
-
-First, you will need to install [XCode](http://itunes.apple.com/us/app/xcode/id497799835?mt=12) from the Mac App Store.  Then, open XCode and choose "Preferences", "Downloads", then "Install Command Line Tools".
-
-#### Linux, FreeBSD, etc.
-
-You're probably good.
+* Windows: Install Rtools http://cran.r-project.org/bin/windows/Rtools/
+* Mac: 
+    - First install XCode from the Mac App Store
+    - Then, open XCode and choose "Preferences", "Downloads", then "Install Command Line Tools".
+* Linux/FreeBSD: You need C and Fortran compilers, which you may well already have installed.  Consult your distribution's package manager.
 
