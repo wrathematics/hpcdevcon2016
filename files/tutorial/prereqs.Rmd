@@ -38,23 +38,24 @@ If you wish to experiment with using MPI with R, then you will need a system ins
 
 
 ### Packages
-The lab will use both in instruction and in exercises several package extensions.  To install a package named `pkg`, start up an R session and enter 
+The lab will use both in instruction and in exercises several package extensions.  To install a package named `pkg` (including automatically handling dependency resolution), start up an R session and enter 
 ```{r, echo=TRUE, eval=FALSE}
 install.packages("pkg")
 ```
 
-This will automatically handle dependency resolution for you.
-
 Two packages which we will highlight during the lab which you are strongly recommended to install are:
+
 * rbenchmark
 * microbenchmark
 
 If you wish to experiment with (mostly) shared-memory parallelism in R, you might want to install:
+
 * foreach
 * doParallel
 * snow
 
 We will also briefly discuss using MPI with R.  If you have MPI installed (see above), the main packages of interest are:
+
 * Rmpi
 * pbdMPI
 * pbdDMAT
